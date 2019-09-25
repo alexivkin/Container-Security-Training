@@ -1,0 +1,6 @@
+FROM alpine
+COPY . /
+RUN chmod a+x /installer.sh /mytool.sh \
+ && ./installer.sh dev.env \
+ && rm dev.env
+CMD [ "/bin/sh","-c","/mytool.sh" ]

@@ -1,0 +1,8 @@
+FROM alpine
+ENV PROD_APIKEY=BUILDTIME_APIKEY
+COPY installer.sh mytool.sh /
+RUN echo $PROD_APIKEY > dev.env \
+ && chmod a+x /installer.sh /mytool.sh \
+ && ./installer.sh dev.env \
+ && rm dev.env
+CMD [ "/bin/sh","-c","/mytool.sh" ]

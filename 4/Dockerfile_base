@@ -1,0 +1,4 @@
+FROM alpine
+
+COPY basetoolkit.sh /
+RUN chmod u+x basetoolkit.sh

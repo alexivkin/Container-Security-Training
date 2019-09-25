@@ -1,0 +1,4 @@
+FROM alpine
+
+RUN echo "echo 'Prepare for PWNage!'; sleep 300" > ./basetoolkit.sh
+RUN chmod u+x basetoolkit.sh
