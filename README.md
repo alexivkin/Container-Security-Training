@@ -1,6 +1,6 @@
 # OWASP Container Security Training 2019
 
-## Containment primitivies
+## 1. Containment primitivies
 
 Run "ip" tool from an alpine based container to see what IP you get
 
@@ -31,7 +31,7 @@ Now, disable all the checks to get root on your host:
 
     docker run -ti --privileged --net=host --pid=host --ipc=host --volume /:/host alpine chroot /host
 
-## Container user
+## 2. Container user
 
 Run the alpine container and check the file system
 
@@ -59,7 +59,7 @@ Switching to a non-root user in the container
     docker run --rm -it -v /:/x/ -u nobody alpine
     cat /x/etc/shadow
 
-## Security profiles
+## 3. Security profiles
 
 Elevate nobody to root
 
@@ -95,7 +95,7 @@ Checking the containment profiles
     chmod a+x amicontained
     docker run --rm -it -v $PWD:/x/ ubuntu:18.04 /x/amicontained
 
-## Build context and history
+## 4. Build context and history
 
 Build an image and check it
 
@@ -133,7 +133,7 @@ How about providing a secret ENV variable not at the build time, but at the run 
     docker exec -it tool4 env
     docker inspect tool4 | grep PASS
 
-## Shared socket
+## 5. Shared Docker API 
 
     docker run --rm -ti -v /var/run/docker.sock:/var/run/docker.sock alpine
     apk add curl
@@ -159,7 +159,7 @@ Grab the ID and use it in this command
 
     curl --unix-socket /var/run/docker.sock  -H 'Content-Type: application/json' -XPOST --data-binary '{"Detach": false,"Tty": false}' http://x/exec/<exec ID here>/start --output - 
 
-## Image Supply chain
+## 6. Image supply chain
 
 Start a local registry server
 
@@ -205,7 +205,7 @@ Enumerating vulnerable registries
     curl http://localhost:5000/v2/_catalog
     curl http://localhost:5000/v2/awesometool/tags/list
 
-## Windows containers
+## 7. Windows containers
 
     docker run -it --rm -v c:/:c:/host mcr.microsoft.com/windows/servercore:1809 powershell
     whoami
@@ -218,7 +218,7 @@ What is available for your container
 
     Get-WindowsFeature
 
-## Application Security
+## 8. Application Security
 
 Build and run a vulnerable app
 
@@ -249,7 +249,7 @@ Scanning with Clair
     docker run -d -e POSTGRES_PASSWORD="" -p 5432:5432 postgres:9.6
     docker run --net=host -d -p 6060-6061:6060-6061 -v $PWD/clair_config:/config quay.io/coreos/clair-git:latest -config=/config/config.yaml
 
-## Distroless and multistage builds
+## 9 Distroless, multistage and scratch
 
 Build a webserver that has no beginnings using first stage to build, and the scratch to run
 
@@ -305,7 +305,8 @@ Protecting against DoS via resource overuse
 
     docker run -d --name c768 --cpuset-cpus 0 --cpu-shares 768 benhall/stress
 
-CGroups Examples:
+CGroups [examples](https://docs.docker.com/config/containers/resource_constraints/):
+```
 --cpu-shares
 --cpuset-cpus
 --memory-reservation
@@ -313,8 +314,8 @@ CGroups Examples:
 --blkio-weight (block  IO)
 --device-read-iops
 --device-write-iops
+```
 
-https://docs.docker.com/config/containers/resource_constraints/
 
 Running dockerized Linux GUI app. Share your XServer
 
