@@ -168,6 +168,7 @@ Start a local registry server
 
 There is a base container that your own container starts from, with some base tooling in it
 
+    cd 4
     docker build -t localhost:5000/toolbase:1.0 -f Dockerfile_base .
     docker push localhost:5000/toolbase:1.0
     docker build -t localhost:5000/awesometool:1.1  .
